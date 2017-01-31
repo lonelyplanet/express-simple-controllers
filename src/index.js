@@ -4,7 +4,7 @@ import path from "path";
 import fs from "fs";
 
 const getControllers = (directory = "controllers") => {
-  const controllerPath = path.join(path.cwd(), directory);
+  const controllerPath = path.join(process.cwd(), directory);
   const controllers = fs.readdirSync(controllerPath);
 
   return controllers.map((c) => {
@@ -42,7 +42,7 @@ const allowedMethods = [{
 export default function initialize(router, {
   controllers,
   directory,
-}) {
+} = {}) {
   const parsedControllers = typeof controllers === "undefined" ?
     getControllers(directory) :
     controllers;

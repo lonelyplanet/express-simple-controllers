@@ -31,6 +31,25 @@ const show = {
 export { show };
 ```
 
+#### Handler types
+```js
+const show = {
+  method: "GET",
+  route: "/home",
+  handler: {
+    json(req, res, next) {
+      res.json({ home: "home" });
+    }
+    html(req, res, next) {
+      res.render("home");
+    }
+  }
+};
+
+export { show };
+```
+
+
 #### Middleware and before
 If you export a `before` function, it will run before every method in the file unless you pass a `skipBefore: true`.
 
