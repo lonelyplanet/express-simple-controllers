@@ -16,6 +16,12 @@ initialize(router);
 Then create a `controllers` directory and add anything with an `_controller.js` suffix. e.g. `home_controller.js`.
 Anything with that suffix will be added as a controller.
 
+If you need to change the controller directory...
+
+```js
+initialize(router, { directory: "server/controllers" });
+```
+
 #### Basic
 You can create controller methods in a few different ways.
 
