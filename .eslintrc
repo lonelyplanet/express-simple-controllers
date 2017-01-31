@@ -1,0 +1,15 @@
+{
+  "globals": {
+    "describe": true,
+    "it": true,
+    "expect": true,
+    "beforeEach": true
+  },
+  "rules": {
+    "quotes": [0]
+  },
+  "plugins": [
+    "react"
+  ],
+  "extends": ["airbnb"]
+}
