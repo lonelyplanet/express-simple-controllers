@@ -1,4 +1,7 @@
-# express-simple-controllers
+# express-simple-controllers 
+
+![](https://travis-ci.org/lonelyplanet/express-simple-controllers.svg?branch=master)  
+
 Create super simple controllers for routing an express app.
 
 ### How to use
