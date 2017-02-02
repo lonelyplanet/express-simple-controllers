@@ -7,7 +7,8 @@
     "build": "babel -d dist src",
     "lint": "./node_modules/.bin/eslint src --ext .js,.jsx",
     "test": "NODE_ENV=test mocha --reporter spec --compilers js:babel-register --recursive test/",
-    "test:ci": "NODE_ENV=test mocha --watch --reporter spec --compilers js:babel-register --recursive test/"
+    "test:ci": "NODE_ENV=test mocha --watch --reporter spec --compilers js:babel-register --recursive test/",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
