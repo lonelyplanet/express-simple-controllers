@@ -7,7 +7,9 @@ const getControllers = (directory = "controllers") => {
   const controllerPath = path.join(process.cwd(), directory);
   const controllers = fs.readdirSync(controllerPath);
 
-  return controllers.map((c) => {
+  return controllers
+    .filter(c => !fs.lstatSync(`${controllerPath}/${c}`).isDirectory())
+    .map((c) => {
     const controller = require(`${controllerPath}/${c}`);
     const options = controller.options || { baseRoute: "" };
     const name = c.replace(/_controller\.js$/, "");
