@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/lonelyplanet/express-simple-controllers/compare/v1.1.0...v1.1.1) (2017-03-07)
+
+
+### Bug Fixes
+
+* pass name of the action instead of the entire handler object ([8ddd49d](https://github.com/lonelyplanet/express-simple-controllers/commit/8ddd49d))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/lonelyplanet/express-simple-controllers/compare/v1.0.2...v1.1.0) (2017-03-07)
 
