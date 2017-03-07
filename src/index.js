@@ -80,7 +80,7 @@ export default function initialize(router, {
         const handlerRoute = options.route === "/" ? "" : options.route;
         const { baseRoute } = controllerOptions;
         const allMiddleware = [
-          controllerMiddleware(controller.name, handler),
+          controllerMiddleware(controller.name, key),
           ...middleware,
           ...(!options.middleware ? [nooptBefore] : options.middleware),
           options.skipBefore ? nooptBefore : before,
@@ -122,14 +122,14 @@ export default function initialize(router, {
         if (allowed) {
           if (key === "list") {
             router.get(`/${route}s.:ext?`,
-              controllerMiddleware(controller.name, handler),
+              controllerMiddleware(controller.name, key),
               before,
               ...middleware,
               handler,
             );
           } else {
             router[allowed.method](`/${route}/:id.:ext?`,
-              controllerMiddleware(controller.name, handler),
+              controllerMiddleware(controller.name, key),
               before,
               ...middleware,
               handler,
