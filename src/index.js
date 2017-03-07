@@ -10,18 +10,30 @@ const getControllers = (directory = "controllers") => {
   return controllers
     .filter(c => !fs.lstatSync(`${controllerPath}/${c}`).isDirectory())
     .map((c) => {
-    const controller = require(`${controllerPath}/${c}`);
-    const options = controller.options || { baseRoute: "" };
-    const name = c.replace(/_controller\.js$/, "");
+      const controller = require(`${controllerPath}/${c}`);
+      const options = controller.options || { baseRoute: "" };
+      const name = c.replace(/_controller\.js$/, "");
 
-    return {
-      route: (options && options.baseRoute) || name,
-      controller: Object.assign({}, controller, {
-        options,
-        name,
-      }),
-    };
-  });
+      return {
+        route: (options && options.baseRoute) || name,
+        controller: Object.assign({}, controller, {
+          options,
+          name,
+        }),
+      };
+    });
+};
+
+
+const controllerMiddleware = (controller: string, action: string) => (req, res, next) => {
+  const request = req;
+
+  request.controller = {
+    name: controller,
+    action,
+  };
+
+  next();
 };
 
 const allowedMethods = [{
@@ -44,7 +56,10 @@ const allowedMethods = [{
 export default function initialize(router, {
   controllers,
   directory,
-} = {}) {
+  middleware = [],
+} = {
+  middleware: [],
+}) {
   const parsedControllers = typeof controllers === "undefined" ?
     getControllers(directory) :
     controllers;
@@ -64,7 +79,9 @@ export default function initialize(router, {
         const options = handler;
         const handlerRoute = options.route === "/" ? "" : options.route;
         const { baseRoute } = controllerOptions;
-        const middleware = [
+        const allMiddleware = [
+          controllerMiddleware(controller.name, handler),
+          ...middleware,
           ...(!options.middleware ? [nooptBefore] : options.middleware),
           options.skipBefore ? nooptBefore : before,
         ];
@@ -96,7 +113,7 @@ export default function initialize(router, {
         }
 
         router[options.method.toLowerCase()](`${baseRoute}${handlerRoute}`,
-          ...middleware,
+          ...allMiddleware,
           handlerFn,
         );
       } else {
@@ -105,12 +122,16 @@ export default function initialize(router, {
         if (allowed) {
           if (key === "list") {
             router.get(`/${route}s.:ext?`,
+              controllerMiddleware(controller.name, handler),
               before,
+              ...middleware,
               handler,
             );
           } else {
             router[allowed.method](`/${route}/:id.:ext?`,
+              controllerMiddleware(controller.name, handler),
               before,
+              ...middleware,
               handler,
             );
           }

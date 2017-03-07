@@ -79,13 +79,13 @@ describe("index route", function() {
 
     // The handler should get setup correctly
 
-    expect(mockControllers[0].controller.show.handler).to.equal(mockRouter.get.getCall(0).args[3]);
+    expect(mockControllers[0].controller.show.handler).to.equal(mockRouter.get.getCall(0).args[4]);
 
     // The route should be /
     expect(mockRouter.get.getCall(1).args[0]).to.equal("/foo");
 
     // The handler should get setup correctly
-    expect(mockControllers[0].controller.foo.handler).to.equal(mockRouter.get.getCall(1).args[3]);
+    expect(mockControllers[0].controller.foo.handler).to.equal(mockRouter.get.getCall(1).args[4]);
   });
 
   it("should allow for middleware", () => {
@@ -109,12 +109,16 @@ describe("index route", function() {
 
     initialize(mockRouter, {
       controllers: mockControllers,
+      middleware: [function custom(req, res, next) { next(); }],
     });
 
     const routeArg = mockRouter.get.getCall(0).args[0];
     expect(routeArg).to.equal("/foo");
 
-    const middlewareArg = mockRouter.get.getCall(0).args[1];
+    const globalMiddleware = mockRouter.get.getCall(0).args[2];
+    const middlewareArg = mockRouter.get.getCall(0).args[3];
+
+    expect(globalMiddleware.name).to.equal("custom");
     expect(typeof middlewareArg).to.equal("function");
   });
 
@@ -141,7 +145,7 @@ describe("index route", function() {
       controllers: mockControllers,
     });
 
-    const getHandler = mockRouter.get.getCall(0).args[3];
+    const getHandler = mockRouter.get.getCall(0).args[4];
 
     getHandler({
       headers: {
