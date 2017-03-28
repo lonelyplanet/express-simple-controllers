@@ -1,6 +1,6 @@
 {
   "name": "express-simple-controllers",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Create super simple controllers for routing an express app.",
   "main": "dist/index.js",
   "scripts": {
