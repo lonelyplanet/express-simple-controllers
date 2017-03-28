@@ -94,10 +94,10 @@ export default function initialize(router, {
           };
 
           handlerFn = (req, res, next) => {
-            const contentType = req.headers["content-type"] || "text/html";
+            const accept = req.headers["accept"];
             const type = Object.keys(handlerMap).find(
               (h) => {
-                if (contentType.toLowerCase().indexOf(h) > -1) {
+                if (accept.toLowerCase().indexOf(h) > -1) {
                   return handlerMap[h];
                 }
                 return null;

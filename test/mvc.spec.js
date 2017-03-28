@@ -149,7 +149,7 @@ describe("index route", function() {
 
     getHandler({
       headers: {
-        "content-type": "text/html",
+        "accept": "text/html",
       },
     });
 
@@ -157,7 +157,7 @@ describe("index route", function() {
 
     getHandler({
       headers: {
-        "content-type": "application/json",
+        "accept": "application/json",
       },
     });
 
