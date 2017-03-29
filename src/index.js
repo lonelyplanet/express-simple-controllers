@@ -94,7 +94,8 @@ export default function initialize(router, {
           };
 
           handlerFn = (req, res, next) => {
-            const accept = req.headers["accept"];
+            const accept = req.headers["accept"] || "text/html";
+            console.log(accept);
             const type = Object.keys(handlerMap).find(
               (h) => {
                 if (accept.toLowerCase().indexOf(h) > -1) {
