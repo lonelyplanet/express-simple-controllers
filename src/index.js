@@ -104,8 +104,8 @@ export default function initialize(router, {
                 return null;
               },
             );
-            const handlerType = handlerMap[type];
-            if (handlerType) {
+            const handlerType = handlerMap[type] || "html";
+            if (handlerType && options.handler[handlerType]) {
               options.handler[handlerType](req, res, next);
             } else {
               next();

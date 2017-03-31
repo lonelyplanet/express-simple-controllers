@@ -162,5 +162,13 @@ describe("index route", function() {
     });
 
     expect(mockControllers[0].controller.show.handler.json.calledOnce).to.be.ok;
+
+    getHandler({
+      headers: {
+        "accept": "*/*",
+      },
+    });
+
+    expect(mockControllers[0].controller.show.handler.html.calledTwice).to.be.ok;
   });
 });
